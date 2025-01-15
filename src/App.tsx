@@ -8,6 +8,7 @@ import './assets/css/responsive.css';
 import TopControls from './sections/TopControls';
 import Results from './sections/Results';
 import Loader from './ui/Loader';
+import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
   const [gifs, setGifs] = useState<Gif[]>([]);
@@ -51,13 +52,15 @@ function App() {
 
   return (
     <>
-      <main>
-        <TopControls formSubmit={formSubmit} />
+      <ErrorBoundary>
+        <main>
+          <TopControls formSubmit={formSubmit} />
 
-        {loading && <Loader />}
-        {error && <p>Error: {error}</p>}
-        {!loading && !error && <Results gifs={gifs} />}
-      </main>
+          {loading && <Loader />}
+          {error && <p>Error: {error}</p>}
+          {!loading && !error && <Results gifs={gifs} />}
+        </main>
+      </ErrorBoundary>
     </>
   );
 }
