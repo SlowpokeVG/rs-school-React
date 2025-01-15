@@ -4,7 +4,7 @@ import ErrorButton from '../components/ErrorButton';
 
 import { ResultItemsProps } from '../types';
 
-function Results( { gifs }: ResultItemsProps ) {
+function Results({ gifs }: ResultItemsProps) {
   return (
     <section className="results">
       <ResultItems gifs={gifs} />

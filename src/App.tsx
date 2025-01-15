@@ -7,9 +7,9 @@ import './assets/css/responsive.css';
 
 import TopControls from './sections/TopControls';
 import Results from './sections/Results';
+import Loader from './ui/Loader';
 
 function App() {
-
   const [gifs, setGifs] = useState<Gif[]>([]);
   const [error, setError] = useState<string | null | undefined>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -53,13 +53,10 @@ function App() {
     <>
       <main>
         <TopControls formSubmit={formSubmit} />
-        
-        {loading && <p>Loading...</p>}
+
+        {loading && <Loader />}
         {error && <p>Error: {error}</p>}
-        {!loading && !error && (
-          <Results gifs={gifs} />
-        )}
-        
+        {!loading && !error && <Results gifs={gifs} />}
       </main>
     </>
   );

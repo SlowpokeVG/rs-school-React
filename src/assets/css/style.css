@@ -280,3 +280,9 @@ h2 span,
 .error-button:hover .error-button-text {
     color: var(--light);
 }
+
+.loader {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+}
