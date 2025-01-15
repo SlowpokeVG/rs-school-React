@@ -1,6 +1,6 @@
-function Error( {error}:{error:string} ) {
+function Error({ error }: { error: string }) {
   return (
-    <div className="error">
+    <div className="error-message">
       <p>An error occured:</p>
       <p>{error}</p>
     </div>

@@ -1,8 +1,6 @@
-import { useState } from 'react';
 import { SearchProps } from '../types';
 
-function Search({ formSubmit }: SearchProps) {
-  const [query, setQuery] = useState('');
+function Search({ formSubmit, query, setQuery }: SearchProps) {
 
   const inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);

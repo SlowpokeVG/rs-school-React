@@ -15,6 +15,7 @@ function App() {
   const [gifs, setGifs] = useState<Gif[]>([]);
   const [error, setError] = useState<string | null | undefined>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [query, setQuery] = useState<string>('');
 
   const fetchTrends = async () => {
     setLoading(true);
@@ -43,11 +44,19 @@ function App() {
   };
 
   useEffect(() => {
-    fetchTrends();
+    const storedQuery = localStorage.getItem('query');
+    if (storedQuery) {
+      setQuery(storedQuery);
+      fetchGifs(storedQuery);
+    } else {
+      fetchTrends();
+    }
   }, []);
 
   const formSubmit = (query: string, event: React.FormEvent) => {
     event.preventDefault();
+    localStorage.setItem('query', query);
+    setQuery(query);
     fetchGifs(query);
   };
 
@@ -55,7 +64,11 @@ function App() {
     <>
       <ErrorBoundary>
         <main>
-          <TopControls formSubmit={formSubmit} />
+          <TopControls 
+            formSubmit={formSubmit} 
+            query={query}
+            setQuery={setQuery}
+          />
 
           {loading && <Loader />}
           {error && <Error error={error} />}

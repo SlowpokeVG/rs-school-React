@@ -287,7 +287,7 @@ h2 span,
     justify-content: center;
 }
 
-.error {
+.error-message {
     padding: 20px;
     border: 2px solid crimson;
     text-align: center;
