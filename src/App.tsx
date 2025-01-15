@@ -8,6 +8,7 @@ import './assets/css/responsive.css';
 import TopControls from './sections/TopControls';
 import Results from './sections/Results';
 import Loader from './ui/Loader';
+import Error from './ui/Error';
 import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
@@ -57,7 +58,7 @@ function App() {
           <TopControls formSubmit={formSubmit} />
 
           {loading && <Loader />}
-          {error && <p>Error: {error}</p>}
+          {error && <Error error={error} />}
           {!loading && !error && <Results gifs={gifs} />}
         </main>
       </ErrorBoundary>

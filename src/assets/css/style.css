@@ -286,3 +286,9 @@ h2 span,
     display: flex;
     justify-content: center;
 }
+
+.error {
+    padding: 20px;
+    border: 2px solid crimson;
+    text-align: center;
+}
