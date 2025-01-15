@@ -5,7 +5,6 @@ import { treanding } from '../scripts/api';
 import { ApiResponse, Gif } from '../types';
 
 function ResultItems() {
-
   const [gifs, setGifs] = useState<Gif[]>([]);
   const [error, setError] = useState<string | null | undefined>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -25,7 +24,6 @@ function ResultItems() {
     };
 
     fetchTrends();
-
   }, []);
 
   return (
@@ -35,13 +33,10 @@ function ResultItems() {
       {!loading && !error && (
         <>
           {gifs.map((gif) => (
-            <ResultItem
-              gif={gif}
-            />
+            <ResultItem key={gif.id} gif={gif} />
           ))}
         </>
       )}
-      
     </div>
   );
 }

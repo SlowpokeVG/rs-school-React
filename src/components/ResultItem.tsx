@@ -1,4 +1,4 @@
-import { ResultItemProps } from "../types";
+import { ResultItemProps } from '../types';
 
 function ResultItem({ gif }: ResultItemProps) {
   return (
@@ -9,9 +9,7 @@ function ResultItem({ gif }: ResultItemProps) {
       <div className="item-info">
         <div className="item-wrapper">
           <div className="item-title">{gif.title}</div>
-          <div className="item-description">
-            {gif.alt_text}
-          </div>
+          <div className="item-description">{gif.alt_text}</div>
         </div>
       </div>
     </div>
