@@ -1,18 +1,31 @@
-//import { useState } from 'react';
+import { useState } from 'react';
+import { SearchProps } from '../types';
 
-function Search() {
+function Search( {formSubmit}: SearchProps ) {
+
+  const [query, setQuery] = useState('');
+
+  const inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
+
+  
+
   return (
     <div className="search-form">
-      <div className="search-form-wrapper">
-        <input
-          type="text"
-          name="search"
-          className="search"
-          placeholder="Search"
-          autoComplete="off"
-        />
-        <button type="submit" className="button"></button>
-      </div>
+      <form className="search-form-wrapper" onSubmit={(event) => formSubmit(query, event)}>
+          <input
+            type="text"
+            name="search"
+            className="search"
+            placeholder="Search"
+            autoComplete="off"
+            value={query}
+            onChange={inputChange}
+          />
+          <button type="submit" className="button"></button>
+        </form>
+      
     </div>
   );
 }

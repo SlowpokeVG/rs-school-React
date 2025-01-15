@@ -159,7 +159,7 @@ h2 span,
 }
 
 .search-form form:has(> .search:focus) {
-    filter: drop-shadow(0 0 10px crimson);
+    filter: drop-shadow(0 0 10px var(--darkgrey));
 }
 
 .search-form .button {

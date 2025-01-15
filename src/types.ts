@@ -26,3 +26,11 @@ export interface ApiResponse {
 export interface ResultItemProps {
   gif: Gif;
 }
+
+export interface ResultItemsProps {
+  gifs: Gif[];
+}
+
+export interface SearchProps {
+  formSubmit: (query: string, event: React.FormEvent) => void;
+}
