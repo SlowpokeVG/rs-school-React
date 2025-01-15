@@ -1,13 +1,10 @@
 import { ApiResponse } from '../types';
 
-export default async function getData(
-    url: string
-): Promise<{
+export default async function getData(url: string): Promise<{
   success: boolean;
   data?: ApiResponse;
   error?: string;
 }> {
-
   try {
     const response = await fetch(url);
 

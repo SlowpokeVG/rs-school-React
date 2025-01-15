@@ -5,7 +5,6 @@ import ErrorButton from '../components/ErrorButton';
 function Results() {
   return (
     <section className="results">
-      
       <ResultItems />
       <ErrorButton />
     </section>

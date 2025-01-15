@@ -1,16 +1,16 @@
-//import { useState } from 'react';
+import { ResultItemProps } from "../types";
 
-function ResultItem() {
+function ResultItem({ gif }: ResultItemProps) {
   return (
     <div className="results-item">
       <div className="item-image">
-        <img src="/img/coffee-1.jpg" alt="" />
+        <img src={gif.images.fixed_height.url} alt="" />
       </div>
       <div className="item-info">
         <div className="item-wrapper">
-          <div className="item-title">Irish coffee</div>
+          <div className="item-title">{gif.title}</div>
           <div className="item-description">
-            Fragrant black coffee with Jameson Irish whiskey and whipped milk
+            {gif.alt_text}
           </div>
         </div>
       </div>
