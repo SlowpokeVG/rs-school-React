@@ -9,7 +9,6 @@ import getData from './scripts/getData.ts';
 import { ApiResponse, Gif } from './types.ts';
 
 function Test() {
-
   const [gifs, setGifs] = useState<Gif[]>([]);
   const [error, setError] = useState<string | null | undefined>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -32,7 +31,7 @@ function Test() {
     console.log(gifs);
     console.log(error);
     console.log(loading);
-  }, []);
+  });
 
   return (
     <>
