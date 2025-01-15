@@ -73,7 +73,7 @@ h2 span,
     margin-top: 4rem;
 }
 
-.results {
+.error-section {
     margin-bottom: 6rem;
 }
 
@@ -136,6 +136,12 @@ h2 span,
     min-height: 72px;
     margin-top: 14px;
     letter-spacing: 0.05px;
+}
+
+.resultsNotFound {
+    margin-top: 3em;
+    font-size: 20px;
+    text-align: center;
 }
 
 .search-form-wrapper {
@@ -291,4 +297,5 @@ h2 span,
     padding: 20px;
     border: 2px solid crimson;
     text-align: center;
+    margin-top: 3rem;
 }

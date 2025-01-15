@@ -1,14 +1,18 @@
 import ResultItems from '../components/ResultItems';
-//import Error from '../components/Error';
-import ErrorButton from '../components/ErrorButton';
 
 import { ResultItemsProps } from '../types';
+import ResultsNotFound from '../components/ResultsNotFound';
 
 function Results({ gifs }: ResultItemsProps) {
   return (
     <section className="results">
-      <ResultItems gifs={gifs} />
-      <ErrorButton />
+      {
+        (gifs.length == 0)
+        ?
+        <ResultsNotFound />
+        :
+        <ResultItems gifs={gifs} />
+      }
     </section>
   );
 }

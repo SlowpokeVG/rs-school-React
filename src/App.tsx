@@ -10,6 +10,7 @@ import Results from './sections/Results';
 import Loader from './ui/Loader';
 import Error from './ui/Error';
 import ErrorBoundary from './components/ErrorBoundary';
+import ErrorButton from './sections/ErrorButton';
 
 function App() {
   const [gifs, setGifs] = useState<Gif[]>([]);
@@ -64,8 +65,8 @@ function App() {
     <>
       <ErrorBoundary>
         <main>
-          <TopControls 
-            formSubmit={formSubmit} 
+          <TopControls
+            formSubmit={formSubmit}
             query={query}
             setQuery={setQuery}
           />
@@ -73,6 +74,7 @@ function App() {
           {loading && <Loader />}
           {error && <Error error={error} />}
           {!loading && !error && <Results gifs={gifs} />}
+          <ErrorButton />
         </main>
       </ErrorBoundary>
     </>

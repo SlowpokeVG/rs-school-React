@@ -6,11 +6,7 @@ function TopControls({ formSubmit, query, setQuery }: SearchProps) {
   return (
     <section className="top">
       <Title />
-      <Search 
-        formSubmit={formSubmit} 
-        query={query}
-        setQuery={setQuery}
-      />
+      <Search formSubmit={formSubmit} query={query} setQuery={setQuery} />
     </section>
   );
 }

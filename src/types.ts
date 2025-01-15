@@ -34,5 +34,5 @@ export interface ResultItemsProps {
 export interface SearchProps {
   formSubmit: (query: string, event: React.FormEvent) => void;
   query: string;
-  setQuery: (query: string) => void
+  setQuery: (query: string) => void;
 }

@@ -1,7 +1,6 @@
 import { SearchProps } from '../types';
 
 function Search({ formSubmit, query, setQuery }: SearchProps) {
-
   const inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
