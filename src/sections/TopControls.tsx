@@ -1,11 +1,10 @@
-//import { useState } from 'react';
-
-import Search from '../components/Search.tsx';
+import Title from '../components/Title';
+import Search from '../components/Search';
 
 function TopControls() {
   return (
     <section className="top">
-      <h1>Giphy API</h1>
+      <Title />
       <Search />
     </section>
   );

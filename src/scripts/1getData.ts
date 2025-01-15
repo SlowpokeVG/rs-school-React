@@ -1,15 +1,19 @@
 import { ApiResponse } from '../types';
 
 export default async function getData(
-    url: string
+  query: string,
+  offset: number = 0
 ): Promise<{
   success: boolean;
   data?: ApiResponse;
   error?: string;
 }> {
+  const api_key = '3POawzSyTkkosbyTA052fjCzjxnQmdQP';
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(
+      `https://api.giphy.com/v1/gifs/search?api_key=${api_key}&q=${query}&limit=24&offset=${offset}&rating=g&lang=en&bundle=messaging_non_clips`
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);

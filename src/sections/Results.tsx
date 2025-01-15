@@ -1,22 +1,12 @@
-//import { useState } from 'react';
-import ResultItem from '../components/ResultItem.tsx';
-//import Error from '../components/Error.tsx';
-import ErrorButton from '../components/ErrorButton.tsx';
+import ResultItems from '../components/ResultItems';
+//import Error from '../components/Error';
+import ErrorButton from '../components/ErrorButton';
 
 function Results() {
   return (
     <section className="results">
-      <div className="results-items show-items">
-        <ResultItem />
-        <ResultItem />
-        <ResultItem />
-        <ResultItem />
-        <ResultItem />
-        <ResultItem />
-        <ResultItem />
-        <ResultItem />
-      </div>
-
+      
+      <ResultItems />
       <ErrorButton />
     </section>
   );

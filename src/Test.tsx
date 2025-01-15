@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import './assets/css/style.css';
 import './assets/css/responsive.css';
 
-import TopControls from './sections/TopControls.tsx';
-import Results from './sections/Results.tsx';
+import TopControls from './sections/TopControls';
+import Results from './sections/Results';
 
-import getData from './scripts/getData.ts';
-import { ApiResponse, Gif } from './types.ts';
+import { treanding } from './scripts/api';
+import { ApiResponse, Gif } from './types';
 
 function Test() {
   const [gifs, setGifs] = useState<Gif[]>([]);
@@ -16,7 +16,7 @@ function Test() {
   useEffect(() => {
     const fetchGifs = async () => {
       setLoading(true);
-      const result = await getData('funny cats', 0);
+      const result = await treanding();
       const data: ApiResponse | undefined = result.data;
       if (result.success && data) {
         setGifs(data.data);
