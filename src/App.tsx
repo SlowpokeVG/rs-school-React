@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { search, treanding } from './scripts/api';
+import React, { Component } from 'react';
+import { search, trending } from './scripts/api';
 import { ApiResponse, Gif } from './types';
 
 import './assets/css/style.css';
@@ -12,63 +12,65 @@ import Error from './ui/Error';
 import ErrorBoundary from './components/ErrorBoundary';
 import ErrorButton from './sections/ErrorButton';
 
-function App() {
-  const [gifs, setGifs] = useState<Gif[]>([]);
-  const [error, setError] = useState<string | null | undefined>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [query, setQuery] = useState<string>('');
-
-  const fetchTrends = async () => {
-    setLoading(true);
-    const result = await treanding();
-    const data: ApiResponse | undefined = result.data;
-    if (result.success && data) {
-      setGifs(data.data);
-    } else {
-      setError(result.error);
-    }
-
-    setLoading(false);
+class App extends Component {
+  state = {
+    gifs: [] as Gif[],
+    error: null as string | null | undefined,
+    loading: true,
+    query: '',
   };
 
-  const fetchGifs = async (query: string) => {
-    setLoading(true);
+  componentDidMount() {
+    const storedQuery = localStorage.getItem('query');
+    if (storedQuery) {
+      this.setState({ query: storedQuery });
+      this.fetchGifs(storedQuery);
+    } else {
+      this.fetchTrends();
+    }
+  }
+
+  fetchTrends = async () => {
+    this.setState({ loading: true });
+    const result = await trending();
+    const data: ApiResponse | undefined = result.data;
+    if (result.success && data) {
+      this.setState({ gifs: data.data });
+    } else {
+      this.setState({ error: result.error });
+    }
+    this.setState({ loading: false });
+  };
+
+  fetchGifs = async (query: string) => {
+    this.setState({ loading: true });
     const result = await search(query);
     const data: ApiResponse | undefined = result.data;
     if (result.success && data) {
-      setGifs(data.data);
+      this.setState({ gifs: data.data });
     } else {
-      setError(result.error);
+      this.setState({ error: result.error });
     }
-
-    setLoading(false);
+    this.setState({ loading: false });
   };
 
-  useEffect(() => {
-    const storedQuery = localStorage.getItem('query');
-    if (storedQuery) {
-      setQuery(storedQuery);
-      fetchGifs(storedQuery);
-    } else {
-      fetchTrends();
-    }
-  }, []);
-
-  const formSubmit = (query: string, event: React.FormEvent) => {
+  formSubmit = (query: string, event: React.FormEvent) => {
     event.preventDefault();
     localStorage.setItem('query', query);
-    setQuery(query);
-    fetchGifs(query);
+    this.setState({ query });
+    this.fetchGifs(query);
   };
 
-  return (
-    <>
+  render() {
+    const { gifs, error, loading, query } = this.state;
+
+    return (
       <ErrorBoundary>
         <main>
           <TopControls
-            formSubmit={formSubmit}
+            formSubmit={this.formSubmit}
             query={query}
-            setQuery={setQuery}
+            setQuery={(query: string) => this.setState({ query })}
           />
 
           {loading && <Loader />}
@@ -77,8 +79,8 @@ function App() {
           <ErrorButton />
         </main>
       </ErrorBoundary>
-    </>
-  );
+    );
+  }
 }
 
 export default App;

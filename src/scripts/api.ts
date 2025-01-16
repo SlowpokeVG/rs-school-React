@@ -18,7 +18,7 @@ export async function search(
   return data;
 }
 
-export async function treanding(): Promise<{
+export async function trending(): Promise<{
   success: boolean;
   data?: ApiResponse;
   error?: string;
