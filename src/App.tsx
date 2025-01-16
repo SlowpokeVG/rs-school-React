@@ -26,31 +26,21 @@ class App extends Component {
       this.setState({ query: storedQuery });
       this.fetchGifs(storedQuery);
     } else {
-      this.fetchTrends();
+      this.fetchGifs();
     }
   }
 
-  fetchTrends = async () => {
-    this.setState({ loading: true });
-    const result = await trending();
+  fetchGifs = async (query?: string) => {
+    this.setState({ loading: true, error: null });
+    const result = query ? await search(query) : await trending();
     const data: ApiResponse | undefined = result.data;
-    if (result.success && data) {
-      this.setState({ gifs: data.data });
-    } else {
-      this.setState({ error: result.error });
-    }
-    this.setState({ loading: false });
-  };
 
-  fetchGifs = async (query: string) => {
-    this.setState({ loading: true });
-    const result = await search(query);
-    const data: ApiResponse | undefined = result.data;
     if (result.success && data) {
       this.setState({ gifs: data.data });
     } else {
-      this.setState({ error: result.error });
+      this.setState({ error: result.error || 'Failed to load GIFs.' });
     }
+
     this.setState({ loading: false });
   };
 
