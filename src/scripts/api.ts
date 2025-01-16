@@ -1,7 +1,7 @@
 import { ApiResponse } from '../types';
 import getData from './getData';
 
-const api_key = '5RqPrQB3pVmHHCLE9oHU3Xyl48WQEGQi';
+const api_key = import.meta.env.VITE_API_KEY;
 
 export async function search(
   query: string,
