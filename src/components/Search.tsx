@@ -24,10 +24,7 @@ class Search extends Component<SearchProps> {
 
     return (
       <div className="search-form">
-        <form
-          className="search-form-wrapper"
-          onSubmit={this.formSubmit}
-        >
+        <form className="search-form-wrapper" onSubmit={this.formSubmit}>
           <input
             type="text"
             name="search"

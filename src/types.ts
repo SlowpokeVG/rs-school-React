@@ -36,6 +36,3 @@ export interface SearchProps {
   query: string;
   setQuery: (query: string) => void;
 }
-
-
-
