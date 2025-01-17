@@ -10,7 +10,7 @@ import Results from './sections/Results';
 import Loader from './ui/Loader';
 import Error from './ui/Error';
 import ErrorBoundary from './components/ErrorBoundary';
-import ErrorButton from './sections/ErrorButton';
+import ErrorButton from './components/ErrorButton';
 
 class App extends Component {
   state = {

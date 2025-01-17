@@ -15,15 +15,13 @@ class ErrorButton extends Component {
     }
 
     return (
-      <section className="error-section">
+      <div className="error-section">
         <div className="error">
-          <div className="error-button">
-            <div className="error-button-text" onClick={this.handleClick}>
-              Show Error
-            </div>
+          <div className="error-button" onClick={this.handleClick}>
+            <div className="error-button-text">Show Error</div>
           </div>
         </div>
-      </section>
+      </div>
     );
   }
 }
