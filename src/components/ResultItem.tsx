@@ -13,7 +13,11 @@ class ResultItem extends Component<ResultItemProps> {
         <div className="item-info">
           <div className="item-wrapper">
             <div className="item-title">{gif.title}</div>
-            <div className="item-description">{gif.alt_text}</div>
+            {gif.user ? (
+              <div className="item-description">
+                Author: {gif.user.display_name}
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

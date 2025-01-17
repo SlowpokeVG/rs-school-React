@@ -6,7 +6,9 @@ export interface Gif {
       url: string;
     };
   };
-  alt_text: string;
+  user: {
+    display_name: string;
+  };
 }
 
 export interface ApiResponse {
