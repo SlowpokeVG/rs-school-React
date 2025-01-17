@@ -1,7 +1,7 @@
 import { useState, useEffect, FormEvent } from 'react';
-import { search, trending } from '../scripts/api';
+import { search, trending } from './api';
 import { ApiResponse, Gif } from '../types';
-import useLocalStorage from './useLocalStorage';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 function useAppLogic() {
   const [gifs, setGifs] = useState<Gif[]>([]);

@@ -7,7 +7,7 @@ import Loader from './ui/Loader';
 import Error from './ui/Error';
 import ErrorBoundary from './components/ErrorBoundary';
 import ErrorButton from './components/ErrorButton';
-import useAppLogic from './hooks/useAppLogic';
+import useAppLogic from './scripts/appLogic';
 
 function App() {
   const { gifs, error, loading, query, setQuery, formSubmit } = useAppLogic();
