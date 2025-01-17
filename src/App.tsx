@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { search, trending } from './scripts/api';
 import { ApiResponse, Gif } from './types';
 
@@ -12,65 +12,60 @@ import Error from './ui/Error';
 import ErrorBoundary from './components/ErrorBoundary';
 import ErrorButton from './components/ErrorButton';
 
-class App extends Component {
-  state = {
-    gifs: [] as Gif[],
-    error: null as string | null | undefined,
-    loading: true,
-    query: '',
-  };
+function App() {
+  const [gifs, setGifs] = useState<Gif[]>([]);
+  const [error, setError] = useState<string | null | undefined>(null);
+  const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState('');
 
-  componentDidMount() {
+  useEffect(() => {
     const storedQuery = localStorage.getItem('query');
     if (storedQuery) {
-      this.setState({ query: storedQuery });
-      this.fetchGifs(storedQuery);
+      setQuery(storedQuery);
+      fetchGifs(storedQuery);
     } else {
-      this.fetchGifs();
+      fetchGifs();
     }
-  }
+  }, []);
 
-  fetchGifs = async (query?: string) => {
-    this.setState({ loading: true, error: null });
+  const fetchGifs = async (query?: string) => {
+    setLoading(true);
+    setError(null);
     const result = query ? await search(query) : await trending();
     const data: ApiResponse | undefined = result.data;
 
     if (result.success && data) {
-      this.setState({ gifs: data.data });
+      setGifs(data.data);
     } else {
-      this.setState({ error: result.error || 'Failed to load GIFs.' });
+      setError(result.error || 'Failed to load GIFs.');
     }
 
-    this.setState({ loading: false });
+    setLoading(false);
   };
 
-  formSubmit = (query: string, event: React.FormEvent) => {
+  const formSubmit = (query: string, event: FormEvent) => {
     event.preventDefault();
     localStorage.setItem('query', query);
-    this.setState({ query });
-    this.fetchGifs(query);
+    setQuery(query);
+    fetchGifs(query);
   };
 
-  render() {
-    const { gifs, error, loading, query } = this.state;
+  return (
+    <ErrorBoundary>
+      <main>
+        <TopControls
+          formSubmit={formSubmit}
+          query={query}
+          setQuery={setQuery}
+        />
 
-    return (
-      <ErrorBoundary>
-        <main>
-          <TopControls
-            formSubmit={this.formSubmit}
-            query={query}
-            setQuery={(query: string) => this.setState({ query })}
-          />
-
-          {loading && <Loader />}
-          {error && <Error error={error} />}
-          {!loading && !error && <Results gifs={gifs} />}
-          <ErrorButton />
-        </main>
-      </ErrorBoundary>
-    );
-  }
+        {loading && <Loader />}
+        {error && <Error error={error} />}
+        {!loading && !error && <Results gifs={gifs} />}
+        <ErrorButton />
+      </main>
+    </ErrorBoundary>
+  );
 }
 
 export default App;
