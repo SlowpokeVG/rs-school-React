@@ -6,7 +6,7 @@ export interface Gif {
       url: string;
     };
   };
-  user: {
+  user?: {
     display_name: string;
   };
 }
