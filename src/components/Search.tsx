@@ -1,14 +1,17 @@
-import { ChangeEvent, FormEvent } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { SearchProps } from '../types';
 
 function Search({ query, setQuery, formSubmit }: SearchProps) {
+  const [searchString, setSearchString] = useState(query);
+
   function inputChange(event: ChangeEvent<HTMLInputElement>) {
-    setQuery(event.target.value);
+    setSearchString(event.target.value);
   }
 
   function handleFormSubmit(event: FormEvent) {
     event.preventDefault();
-    formSubmit(query, event);
+    setQuery(searchString);
+    formSubmit(searchString, event);
   }
 
   return (
@@ -20,7 +23,7 @@ function Search({ query, setQuery, formSubmit }: SearchProps) {
           className="search"
           placeholder="Search"
           autoComplete="off"
-          value={query}
+          value={searchString}
           onChange={inputChange}
         />
         <button type="submit" className="button"></button>
