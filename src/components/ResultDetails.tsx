@@ -1,8 +1,17 @@
+import { useNavigate, useParams } from 'react-router-dom';
+
 function ResultDetails() {
+  const { page } = useParams<{ page: string }>();
+  const navigate = useNavigate();
+  const handleClose = () => {
+    navigate(`/${page}`);
+  };
+
+  const { id } = useParams<{ id: string }>();
   return (
     <div className="result-detail">
-      <div className="close-detail"></div>
-      <div className="result-title">Irish coffee</div>
+      <div className="close-detail" onClick={handleClose}></div>
+      <div className="result-title">{id}</div>
       <div className="result-description">
         Fragrant black coffee with Jameson Irish whiskey and whipped milk
       </div>
