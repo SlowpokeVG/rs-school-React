@@ -1,4 +1,5 @@
 import './assets/css/style.css';
+import './assets/css/task2.css';
 import './assets/css/responsive.css';
 
 import TopControls from './sections/TopControls';
