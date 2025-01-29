@@ -25,6 +25,20 @@ export interface ApiResponse {
   };
 }
 
+export interface ApiDetailsResponse {
+  data: Gif;
+  meta: {
+    status: number;
+    msg: string;
+    response_id: string;
+  };
+  pagination?: {
+    total_count: number;
+    count: number;
+    offset: number;
+  };
+}
+
 export interface ResultItemProps {
   gif: Gif;
 }

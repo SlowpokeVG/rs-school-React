@@ -1,8 +1,6 @@
-import { ApiResponse } from '../types';
-
-export default async function getData(url: string): Promise<{
+export default async function getData<T>(url: string): Promise<{
   success: boolean;
-  data?: ApiResponse;
+  data?: T;
   error?: string;
 }> {
   try {
@@ -12,7 +10,7 @@ export default async function getData(url: string): Promise<{
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    const data: ApiResponse = await response.json();
+    const data: T = await response.json();
 
     return {
       success: true,
