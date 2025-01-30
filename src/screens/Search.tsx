@@ -4,9 +4,11 @@ import Loader from '../ui/Loader';
 import Error from '../ui/Error';
 import ErrorButton from '../components/ErrorButton';
 import useAppLogic from '../scripts/appLogic';
+import Pagination from '../components/Pagination';
 
 function SearchScreen() {
-  const { gifs, error, loading, query, setQuery, formSubmit } = useAppLogic();
+  const { gifs, error, loading, query, setQuery, formSubmit, pagesCount } =
+    useAppLogic();
 
   return (
     <main>
@@ -16,6 +18,7 @@ function SearchScreen() {
       {error && <Error error={error} />}
       {!loading && !error && <Results gifs={gifs} />}
       <ErrorButton />
+      <Pagination pagesCount={pagesCount} />
     </main>
   );
 }

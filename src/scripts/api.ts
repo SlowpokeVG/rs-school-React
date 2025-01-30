@@ -2,6 +2,7 @@ import { ApiDetailsResponse, ApiResponse } from '../types';
 import getData from './getData';
 
 const api_key = import.meta.env.VITE_API_KEY;
+const perPage = 24;
 
 export async function search(
   query: string,
@@ -12,19 +13,19 @@ export async function search(
   error?: string;
 }> {
   const data = await getData<ApiResponse>(
-    `https://api.giphy.com/v1/gifs/search?api_key=${api_key}&q=${query}&limit=24&offset=${offset}&rating=r&lang=en&bundle=messaging_non_clips`
+    `https://api.giphy.com/v1/gifs/search?api_key=${api_key}&q=${query}&limit=${perPage}&offset=${offset}&rating=r&lang=en&bundle=messaging_non_clips`
   );
 
   return data;
 }
 
-export async function trending(): Promise<{
+export async function trending(offset: number): Promise<{
   success: boolean;
   data?: ApiResponse;
   error?: string;
 }> {
   const data = await getData<ApiResponse>(
-    `https://api.giphy.com/v1/gifs/trending?api_key=${api_key}&limit=24&offset=0&rating=r&lang=en&bundle=messaging_non_clips`
+    `https://api.giphy.com/v1/gifs/trending?api_key=${api_key}&limit=${perPage}&offset=${offset}&rating=r&lang=en&bundle=messaging_non_clips`
   );
 
   return data;
