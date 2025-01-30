@@ -61,21 +61,33 @@ function ResultDetails() {
     <div className="result-detail">
       <div className="close-detail" onClick={handleClose}></div>
       <div className="result-title">{gif.title}</div>
-      <div className="result-description">
-        Fragrant black coffee with Jameson Irish whiskey and whipped milk
-      </div>
-      <div className="result-type">type: gif</div>
-
-      <div className="author-title">Author:</div>
-      <div className="author-profile">
-        <div className="author-image">
-          <img src="img/menu/coffee/coffee-1.jpg" alt="" />
+      <div className="result-description">{gif.images.alt_text}</div>
+      <div className="result-type">Type: {gif.type}</div>
+      <div className="upload-date">Uploaded on: {gif.import_datetime}</div>
+      {gif.source && (
+        <div className="source">
+          <a href={gif.source} target="_blank" rel="noreferrer">
+            Source
+          </a>
         </div>
-        <div className="author-name">Evan Hillton</div>
-      </div>
-      <div className="author-description">
-        Fragrant black coffee with Jameson Irish whiskey and whipped milk
-      </div>
+      )}
+      {gif.user && (
+        <>
+          <div className="author-title">Author: {gif.user.username}</div>
+          <div className="author-profile">
+            {gif.user.avatar_url ? (
+              <div className="author-image">
+                <img
+                  src={gif.user.avatar_url}
+                  alt={`${gif.user.username}'s avatar`}
+                />
+              </div>
+            ) : null}
+            <div className="author-name">{gif.user.display_name}</div>
+          </div>
+          <div className="author-description">{gif.user.description}</div>
+        </>
+      )}
     </div>
   );
 }

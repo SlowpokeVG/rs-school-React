@@ -5,9 +5,17 @@ export interface Gif {
     fixed_height: {
       url: string;
     };
+    alt_text: string;
   };
+  type: string;
+  import_datetime: string;
+  source: string;
+
   user?: {
     display_name: string;
+    avatar_url: string;
+    description: string;
+    username: string;
   };
 }
 

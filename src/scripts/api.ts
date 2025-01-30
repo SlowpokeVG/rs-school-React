@@ -12,7 +12,7 @@ export async function search(
   error?: string;
 }> {
   const data = await getData<ApiResponse>(
-    `https://api.giphy.com/v1/gifs/search?api_key=${api_key}&q=${query}&limit=24&offset=${offset}&rating=g&lang=en&bundle=messaging_non_clips`
+    `https://api.giphy.com/v1/gifs/search?api_key=${api_key}&q=${query}&limit=24&offset=${offset}&rating=r&lang=en&bundle=messaging_non_clips`
   );
 
   return data;
@@ -24,7 +24,7 @@ export async function trending(): Promise<{
   error?: string;
 }> {
   const data = await getData<ApiResponse>(
-    `https://api.giphy.com/v1/gifs/trending?api_key=${api_key}&limit=24&offset=0&rating=g&lang=en&bundle=messaging_non_clips`
+    `https://api.giphy.com/v1/gifs/trending?api_key=${api_key}&limit=24&offset=0&rating=r&lang=en&bundle=messaging_non_clips`
   );
 
   return data;
@@ -36,7 +36,7 @@ export async function detail(id: string): Promise<{
   error?: string;
 }> {
   const data = await getData<ApiDetailsResponse>(
-    `https://api.giphy.com/v1/gifs/${id}?api_key=${api_key}&rating=g`
+    `https://api.giphy.com/v1/gifs/${id}?api_key=${api_key}&rating=r`
   );
 
   return data;
