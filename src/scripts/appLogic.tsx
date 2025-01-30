@@ -1,4 +1,4 @@
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, useEffect, FormEvent, useRef } from 'react';
 import { search, trending } from './api';
 import { ApiResponse, Gif } from '../types';
 import useLocalStorage from '../hooks/useLocalStorage';
@@ -12,15 +12,6 @@ function useAppLogic() {
   const [query, setQuery] = useLocalStorage('query', '');
   const [pagesCount, setPagesCount] = useState(1);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (query != undefined) {
-      fetchGifs(query);
-    }
-  }, [query, page]);
-
-  const currentPage: number = page ? parseInt(page) || 1 : 1;
-  const perPage: number = 24;
 
   const fetchGifs = async (query: string) => {
     setLoading(true);
@@ -41,6 +32,17 @@ function useAppLogic() {
     }
     setLoading(false);
   };
+
+  const fetchGifsRef = useRef(fetchGifs);
+
+  useEffect(() => {
+    if (query != undefined) {
+      fetchGifsRef.current(query);
+    }
+  }, [fetchGifsRef, query, page]);
+
+  const currentPage: number = page ? parseInt(page) || 1 : 1;
+  const perPage: number = 24;
 
   const formSubmit = (query: string, event: FormEvent) => {
     event.preventDefault();
