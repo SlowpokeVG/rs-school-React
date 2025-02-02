@@ -53,7 +53,6 @@ export interface ResultItemProps {
 
 export interface ResultItemsProps {
   gifs: Gif[];
-  details: string | null;
 }
 
 export interface SearchProps {

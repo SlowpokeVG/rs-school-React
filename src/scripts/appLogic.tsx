@@ -7,7 +7,6 @@ import { useSearchParams } from 'react-router-dom';
 function useAppLogic() {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get('page');
-  const details = searchParams.get('details');
 
   const [gifs, setGifs] = useState<Gif[]>([]);
   const [error, setError] = useState<string | null | undefined>(null);
@@ -57,7 +56,6 @@ function useAppLogic() {
     setQuery,
     formSubmit,
     pagesCount,
-    details,
     fetchGifs,
     page,
   };

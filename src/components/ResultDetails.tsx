@@ -4,9 +4,11 @@ import { detail } from '../scripts/api';
 import { ApiDetailsResponse, Gif } from '../types';
 import Loader from '../ui/Loader';
 
-function ResultDetails({ id }: { id: string }) {
+function ResultDetails() {
   const [searchParams, setSearchParams] = useSearchParams();
   const modalRef = useRef<HTMLDivElement | null>(null);
+
+  const id = searchParams.get('details') || '';
 
   const handleClose = () => {
     searchParams.delete('details');

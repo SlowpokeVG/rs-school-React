@@ -1,10 +1,11 @@
-import { useSearchParams } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 import ResultItem from '../components/ResultItem';
 import { ResultItemsProps } from '../types';
-import ResultDetails from './ResultDetails';
 
-function ResultItems({ gifs, details }: ResultItemsProps) {
+function ResultItems({ gifs }: ResultItemsProps) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const details = searchParams.get('details') || '';
+
   const showDetails = (id: string) => {
     searchParams.set('details', id);
     setSearchParams(searchParams);
@@ -23,7 +24,7 @@ function ResultItems({ gifs, details }: ResultItemsProps) {
           </div>
         ))}
       </div>
-      {details && <ResultDetails id={details} />}
+      {details && <Outlet />}
     </div>
   );
 }

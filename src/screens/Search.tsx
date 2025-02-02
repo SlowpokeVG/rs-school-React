@@ -16,7 +16,6 @@ function SearchScreen() {
     setQuery,
     formSubmit,
     pagesCount,
-    details,
     fetchGifs,
   } = useAppLogic();
 
@@ -32,7 +31,7 @@ function SearchScreen() {
 
       {loading && <Loader />}
       {error && <Error error={error} />}
-      {!loading && !error && <Results gifs={gifs} details={details} />}
+      {!loading && !error && <Results gifs={gifs} />}
       <ErrorButton />
       <Pagination pagesCount={pagesCount} />
     </main>

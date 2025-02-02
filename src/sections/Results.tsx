@@ -2,14 +2,10 @@ import ResultItems from '../components/ResultItems';
 import { ResultItemsProps } from '../types';
 import ResultsNotFound from '../components/ResultsNotFound';
 
-function Results({ gifs, details }: ResultItemsProps) {
+function Results({ gifs }: ResultItemsProps) {
   return (
     <section className="results">
-      {gifs.length === 0 ? (
-        <ResultsNotFound />
-      ) : (
-        <ResultItems gifs={gifs} details={details} />
-      )}
+      {gifs.length === 0 ? <ResultsNotFound /> : <ResultItems gifs={gifs} />}
     </section>
   );
 }
