@@ -1,18 +1,29 @@
-import { Link, Outlet } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import ResultItem from '../components/ResultItem';
 import { ResultItemsProps } from '../types';
+import ResultDetails from './ResultDetails';
 
-function ResultItems({ gifs }: ResultItemsProps) {
+function ResultItems({ gifs, details }: ResultItemsProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const showDetails = (id: string) => {
+    searchParams.set('details', id);
+    setSearchParams(searchParams);
+  };
+
   return (
     <div className="results-block">
       <div className="results-items show-items">
         {gifs.map((gif) => (
-          <Link key={gif.id} to={`details/${gif.id}`}>
-            <ResultItem key={gif.id} gif={gif} />
-          </Link>
+          <div
+            key={gif.id}
+            onClick={() => showDetails(gif.id)}
+            style={{ cursor: 'pointer' }}
+          >
+            <ResultItem gif={gif} />
+          </div>
         ))}
       </div>
-      <Outlet />
+      {details && <ResultDetails id={details} />}
     </div>
   );
 }

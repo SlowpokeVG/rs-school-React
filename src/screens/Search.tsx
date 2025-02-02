@@ -5,10 +5,26 @@ import Error from '../ui/Error';
 import ErrorButton from '../components/ErrorButton';
 import useAppLogic from '../scripts/appLogic';
 import Pagination from '../components/Pagination';
+import { useEffect } from 'react';
 
 function SearchScreen() {
-  const { gifs, error, loading, query, setQuery, formSubmit, pagesCount } =
-    useAppLogic();
+  const {
+    gifs,
+    error,
+    loading,
+    query,
+    setQuery,
+    formSubmit,
+    pagesCount,
+    details,
+    fetchGifs,
+  } = useAppLogic();
+
+  useEffect(() => {
+    if (query != undefined) {
+      fetchGifs(query);
+    }
+  }, [fetchGifs, query]);
 
   return (
     <main>
@@ -16,7 +32,7 @@ function SearchScreen() {
 
       {loading && <Loader />}
       {error && <Error error={error} />}
-      {!loading && !error && <Results gifs={gifs} />}
+      {!loading && !error && <Results gifs={gifs} details={details} />}
       <ErrorButton />
       <Pagination pagesCount={pagesCount} />
     </main>

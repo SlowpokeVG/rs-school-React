@@ -1,18 +1,16 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { detail } from '../scripts/api';
 import { ApiDetailsResponse, Gif } from '../types';
 import Loader from '../ui/Loader';
 
-function ResultDetails() {
-  const { page } = useParams<{ page: string }>();
-  const navigate = useNavigate();
-  const handleClose = () => {
-    if (page) navigate(`/${page}`);
-    else navigate('/');
-  };
+function ResultDetails({ id }: { id: string }) {
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const { id } = useParams<{ id: string }>();
+  const handleClose = () => {
+    searchParams.delete('details');
+    setSearchParams(searchParams);
+  };
 
   const [gif, setGif] = useState<Gif>();
   const [error, setError] = useState<string | null | undefined>(null);
