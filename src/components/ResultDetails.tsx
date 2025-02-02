@@ -1,16 +1,32 @@
 import { useSearchParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { detail } from '../scripts/api';
 import { ApiDetailsResponse, Gif } from '../types';
 import Loader from '../ui/Loader';
 
 function ResultDetails({ id }: { id: string }) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const modalRef = useRef<HTMLDivElement | null>(null);
 
   const handleClose = () => {
     searchParams.delete('details');
     setSearchParams(searchParams);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        handleClose();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  });
 
   const [gif, setGif] = useState<Gif>();
   const [error, setError] = useState<string | null | undefined>(null);
@@ -56,7 +72,7 @@ function ResultDetails({ id }: { id: string }) {
   }
 
   return (
-    <div className="result-detail">
+    <div className="result-detail" ref={modalRef}>
       <div className="close-detail" onClick={handleClose}></div>
       <div className="result-title">{gif.title}</div>
       <div className="result-description">{gif.images.alt_text}</div>
