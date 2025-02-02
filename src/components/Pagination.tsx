@@ -7,8 +7,10 @@ function Pagination({ pagesCount }: { pagesCount: number }) {
   const currentPage = page ? parseInt(page) || 1 : 1;
 
   const setPage = (newPage: number) => {
-    searchParams.set('page', newPage.toString());
-    setSearchParams(searchParams);
+    if (newPage !== currentPage) {
+      searchParams.set('page', newPage.toString());
+      setSearchParams(searchParams);
+    }
   };
 
   return (
