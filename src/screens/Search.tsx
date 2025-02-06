@@ -3,21 +3,55 @@ import Results from '../sections/Results';
 import Loader from '../ui/Loader';
 import Error from '../ui/Error';
 import ErrorButton from '../components/ErrorButton';
-import useAppLogic from '../scripts/appLogic';
 import Pagination from '../components/Pagination';
-import { useEffect } from 'react';
+import { FormEvent, useCallback, useEffect, useState } from 'react';
+import useLocalStorage from '../hooks/useLocalStorage';
+import { useSearchParams } from 'react-router-dom';
+import { ApiResponse, Gif } from '../types';
+import { search, trending } from '../scripts/api';
 
 function SearchScreen() {
-  const {
-    gifs,
-    error,
-    loading,
-    query,
-    setQuery,
-    formSubmit,
-    pagesCount,
-    fetchGifs,
-  } = useAppLogic();
+  const [query, setQuery] = useLocalStorage('query', '');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = searchParams.get('page');
+  const [gifs, setGifs] = useState<Gif[]>([]);
+  const [error, setError] = useState<string | null | undefined>(null);
+  const [loading, setLoading] = useState(true);
+  const [pagesCount, setPagesCount] = useState(1);
+
+  const formSubmit = (query: string, event: FormEvent) => {
+    event.preventDefault();
+    searchParams.delete('page');
+    searchParams.delete('details');
+    setSearchParams(searchParams);
+    setQuery(query);
+  };
+
+  const perPage: number = 24;
+
+  const fetchGifs = useCallback(
+    async (query: string) => {
+      const currentPage: number = page ? parseInt(page) || 1 : 1;
+      setLoading(true);
+      setError(null);
+      const result = query
+        ? await search(query, perPage * (currentPage - 1))
+        : await trending(perPage * (currentPage - 1));
+      const data: ApiResponse | undefined = result.data;
+      if (result.success && data) {
+        const totalCount = data.pagination?.total_count
+          ? data.pagination.total_count
+          : 1;
+        setGifs(data.data);
+        setPagesCount(Math.ceil(totalCount / 26));
+      } else {
+        setError(result.error || 'Failed to load GIFs.');
+        setPagesCount(1);
+      }
+      setLoading(false);
+    },
+    [page]
+  );
 
   useEffect(() => {
     if (query != undefined) {

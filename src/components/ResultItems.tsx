@@ -13,18 +13,24 @@ function ResultItems({ gifs }: ResultItemsProps) {
 
   return (
     <div className="results-block">
-      <div className="results-items show-items">
-        {gifs.map((gif) => (
-          <div
-            key={gif.id}
-            onClick={() => showDetails(gif.id)}
-            style={{ cursor: 'pointer' }}
-          >
-            <ResultItem gif={gif} />
+      {gifs.length === 0 ? (
+        <div className="resultsNotFound">Nothing found</div>
+      ) : (
+        <>
+          <div className="results-items show-items">
+            {gifs.map((gif) => (
+              <div
+                key={gif.id}
+                onClick={() => showDetails(gif.id)}
+                style={{ cursor: 'pointer' }}
+              >
+                <ResultItem gif={gif} />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      {details && <Outlet />}
+          {details && <Outlet />}
+        </>
+      )}
     </div>
   );
 }
