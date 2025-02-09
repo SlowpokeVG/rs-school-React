@@ -70,7 +70,25 @@ describe('ResultDetails Component', () => {
       expect(screen.getByText('Source')).toBeInTheDocument();
     });
   });
+  it('no Gif error', async () => {
+    vi.spyOn(api, 'detail').mockResolvedValueOnce({
+      success: false,
+    });
 
+    render(
+      <MemoryRouter>
+        <Routes>
+          <Route path="/" element={<ResultDetails />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Error: Failed to load GIFs.')
+      ).toBeInTheDocument();
+    });
+  });
   it('should close the component when the close button is clicked', async () => {
     const mockGif = mockGifs[0];
 

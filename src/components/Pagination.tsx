@@ -1,15 +1,18 @@
+import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 function Pagination({ pagesCount }: { pagesCount: number }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get('page');
-
-  const currentPage = page ? parseInt(page) || 1 : 1;
+  const [currentPage, setCurrentPage] = useState(
+    page ? parseInt(page) || 1 : 1
+  );
 
   const setPage = (newPage: number) => {
     if (newPage !== currentPage) {
       searchParams.set('page', newPage.toString());
       setSearchParams(searchParams);
+      setCurrentPage(page ? parseInt(page) || 1 : 1);
     }
   };
 
