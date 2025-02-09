@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "prepare": "husky",
     "format:fix": "prettier --write .",
-    "test": "vitest --coverage"
+    "test": "vitest"
   },
   "dependencies": {
     "react": "^18.3.1",

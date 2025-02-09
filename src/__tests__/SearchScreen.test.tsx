@@ -4,6 +4,7 @@ import SearchScreen from '../screens/Search';
 import * as api from '../scripts/api';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { mockGifs } from './mockData';
+import '@testing-library/jest-dom';
 
 vi.mock('../scripts/api');
 

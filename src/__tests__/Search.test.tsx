@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Search from '../components/Search';
 import { beforeEach, describe, expect, it } from 'vitest';
+import '@testing-library/jest-dom';
 
 describe('Search component', () => {
   beforeEach(() => {
