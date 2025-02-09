@@ -6,23 +6,43 @@
 .results-items {
   display: flex;
   flex-wrap: wrap;
+  width: 75%;
+}
+
+.results-items-inner {
+  width: 30%;
 }
 
 .results-item {
-  width: 300px;
+  min-height: 500px;
   cursor: pointer;
 }
 
 .result-detail {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  min-width: 310px;
+  width: 25%;
   padding: 20px;
   box-sizing: border-box;
   border: 1px solid var(--grey);
   border-radius: 40px;
   margin-top: 40px;
+}
+
+.result-inner {
+  position: sticky;
+  top: 20px;
+  z-index: 10;
+  padding-bottom: 10px;
+}
+
+.result-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
 }
 
 .close-detail {

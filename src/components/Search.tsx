@@ -1,7 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { useSearchParams } from 'react-router-dom';
-import '@testing-library/jest-dom';
 
 function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
