@@ -1,6 +1,6 @@
-import { ResultItemProps } from '../types';
+import { Gif } from '../types';
 
-export const mockGifs: ResultItemProps['gif'][] = [
+export const mockGifs = [
   {
     type: 'gif',
     id: 'CjmvTCZf2U3p09Cn0h',
@@ -235,4 +235,4 @@ export const mockGifs: ResultItemProps['gif'][] = [
     alt_text:
       'Video gif. Gray kitten lays on its back while a person scratches its belly. When the person takes their hand off of it, the kitten raises both of its paws up neck to its head.',
   },
-];
+] as unknown as Gif[];
