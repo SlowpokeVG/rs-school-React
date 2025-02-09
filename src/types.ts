@@ -54,9 +54,3 @@ export interface ResultItemProps {
 export interface ResultItemsProps {
   gifs: Gif[];
 }
-
-export interface SearchProps {
-  formSubmit: (query: string, event: React.FormEvent) => void;
-  query: string;
-  setQuery: (query: string) => void;
-}

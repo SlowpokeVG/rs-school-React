@@ -20,6 +20,7 @@ function ResultItems({ gifs }: ResultItemsProps) {
           <div className="results-items show-items">
             {gifs.map((gif) => (
               <div
+                className="results-items-inner"
                 key={gif.id}
                 onClick={() => showDetails(gif.id)}
                 style={{ cursor: 'pointer' }}

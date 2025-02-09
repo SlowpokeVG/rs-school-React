@@ -1,8 +1,20 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { SearchProps } from '../types';
+import useLocalStorage from '../hooks/useLocalStorage';
+import { useSearchParams } from 'react-router-dom';
+import '@testing-library/jest-dom';
 
-function Search({ query, setQuery, formSubmit }: SearchProps) {
+function Search() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [query, setQuery] = useLocalStorage('query', '');
   const [searchString, setSearchString] = useState(query);
+
+  const formSubmit = (query: string, event: FormEvent) => {
+    event.preventDefault();
+    searchParams.delete('page');
+    searchParams.delete('details');
+    setSearchParams(searchParams);
+    setQuery(query);
+  };
 
   function inputChange(event: ChangeEvent<HTMLInputElement>) {
     setSearchString(event.target.value);
