@@ -12,7 +12,7 @@ describe('Search component', () => {
   it('saves the entered value to local storage on search', () => {
     render(
       <MemoryRouter>
-        <Search />
+        <Search fetchGifs={function (): void {}} />
       </MemoryRouter>
     );
 
@@ -29,7 +29,7 @@ describe('Search component', () => {
     localStorage.setItem('query', 'saved query');
     render(
       <MemoryRouter>
-        <Search />
+        <Search fetchGifs={function (): void {}} />
       </MemoryRouter>
     );
 

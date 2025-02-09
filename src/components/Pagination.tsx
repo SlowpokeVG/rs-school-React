@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 
 function Pagination({ pagesCount }: { pagesCount: number }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const page = searchParams.get('page');
+
   const [currentPage, setCurrentPage] = useState(
     searchParams.get('page') ? parseInt(searchParams.get('page') as string) : 1
   );
@@ -12,7 +12,11 @@ function Pagination({ pagesCount }: { pagesCount: number }) {
     if (newPage !== currentPage) {
       searchParams.set('page', newPage.toString());
       setSearchParams(searchParams);
-      setCurrentPage(page ? parseInt(searchParams.get('page') as string) : 1);
+      setCurrentPage(
+        searchParams.get('page')
+          ? parseInt(searchParams.get('page') as string)
+          : 1
+      );
     }
   };
 

@@ -2,18 +2,14 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { useSearchParams } from 'react-router-dom';
 
-function Search() {
+interface SearchProps {
+  fetchGifs: (query: string) => void;
+}
+
+function Search({ fetchGifs }: SearchProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useLocalStorage('query', '');
   const [searchString, setSearchString] = useState(query);
-
-  const formSubmit = (query: string, event: FormEvent) => {
-    event.preventDefault();
-    searchParams.delete('page');
-    searchParams.delete('details');
-    setSearchParams(searchParams);
-    setQuery(query);
-  };
 
   function inputChange(event: ChangeEvent<HTMLInputElement>) {
     setSearchString(event.target.value);
@@ -22,7 +18,10 @@ function Search() {
   function handleFormSubmit(event: FormEvent) {
     event.preventDefault();
     setQuery(searchString);
-    formSubmit(searchString, event);
+    searchParams.delete('page');
+    searchParams.delete('details');
+    setSearchParams(searchParams);
+    fetchGifs(searchString);
   }
 
   return (

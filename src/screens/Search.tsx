@@ -54,7 +54,7 @@ function SearchScreen() {
 
   return (
     <main>
-      <TopControls />
+      <TopControls fetchGifs={fetchGifs} />
 
       {loading && <Loader />}
       {error && <Error error={error} />}

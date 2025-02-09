@@ -1,11 +1,15 @@
 import Title from '../components/Title';
 import Search from '../components/Search';
 
-function TopControls() {
+interface TopControlsProps {
+  fetchGifs: (query: string) => void;
+}
+
+function TopControls({ fetchGifs }: TopControlsProps) {
   return (
     <section className="top">
       <Title />
-      <Search />
+      <Search fetchGifs={fetchGifs} />
     </section>
   );
 }
