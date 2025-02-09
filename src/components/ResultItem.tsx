@@ -4,7 +4,7 @@ function ResultItem({ gif }: ResultItemProps) {
   return (
     <div className="results-item">
       <div className="item-image">
-        <img src={gif.images.fixed_height.url} alt="" />
+        <img src={gif.images.fixed_height.url} alt={`Image ${gif.title}`} />
       </div>
       <div className="item-info">
         <div className="item-wrapper">

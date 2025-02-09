@@ -7,12 +7,13 @@ import Loader from '../ui/Loader';
 function ResultDetails() {
   const [searchParams, setSearchParams] = useSearchParams();
   const modalRef = useRef<HTMLDivElement | null>(null);
-
-  const id = searchParams.get('details') || '';
+  const details = searchParams.get('details');
+  const [id, setId] = useState(details);
 
   const handleClose = () => {
     searchParams.delete('details');
     setSearchParams(searchParams);
+    setId(searchParams.get('details'));
   };
 
   useEffect(() => {
@@ -73,7 +74,7 @@ function ResultDetails() {
     return <div>No GIF available</div>;
   }
 
-  return (
+  return id != null ? (
     <div className="result-detail" ref={modalRef}>
       <div className="close-detail" onClick={handleClose}></div>
       <div className="result-title">{gif.title}</div>
@@ -105,7 +106,7 @@ function ResultDetails() {
         </>
       )}
     </div>
-  );
+  ) : null;
 }
 
 export default ResultDetails;
