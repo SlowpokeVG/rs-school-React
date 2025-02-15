@@ -1,5 +1,5 @@
-import { configureStore } from "@reduxjs/toolkit";
-import selectedItemsReducer from "./reducers/selectedItemsReducer";
+import { configureStore } from '@reduxjs/toolkit';
+import selectedItemsReducer from './reducers/selectedItemsReducer';
 
 export const store = configureStore({
   reducer: {

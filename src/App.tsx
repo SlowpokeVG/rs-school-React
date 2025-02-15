@@ -8,6 +8,7 @@ import NotFoundScreen from './screens/NotFound';
 import ResultDetails from './components/ResultDetails';
 import { store } from './redux/store';
 import { Provider } from 'react-redux';
+import { ThemeContext } from './context/themeContext';
 
 const router = createBrowserRouter([
   {
@@ -29,9 +30,11 @@ const router = createBrowserRouter([
 function App() {
   return (
     <Provider store={store}>
-      <ErrorBoundary>
-        <RouterProvider router={router} />
-      </ErrorBoundary>
+      <ThemeContext.Provider value={{}}>
+        <ErrorBoundary>
+          <RouterProvider router={router} />
+        </ErrorBoundary>
+      </ThemeContext.Provider>
     </Provider>
   );
 }
