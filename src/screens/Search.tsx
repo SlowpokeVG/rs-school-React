@@ -57,14 +57,16 @@ function SearchScreen() {
 
   return (
     <main className={theme + '-theme'}>
-      <TopControls fetchGifs={fetchGifs} />
+      <div className="container">
+        <TopControls fetchGifs={fetchGifs} />
 
-      {loading && <Loader />}
-      {error && <Error error={error} />}
-      {!loading && !error && <Results gifs={gifs} />}
-      <ErrorButton />
-      <Pagination pagesCount={pagesCount} />
-      <Flyout />
+        {loading && <Loader />}
+        {error && <Error error={error} />}
+        {!loading && !error && <Results gifs={gifs} />}
+        <ErrorButton />
+        <Pagination pagesCount={pagesCount} />
+        <Flyout />
+      </div>
     </main>
   );
 }

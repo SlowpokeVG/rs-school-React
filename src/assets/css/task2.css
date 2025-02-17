@@ -9,10 +9,6 @@
   width: 75%;
 }
 
-.results-items-inner {
-  width: 30%;
-}
-
 .results-item {
   min-height: 500px;
   cursor: pointer;

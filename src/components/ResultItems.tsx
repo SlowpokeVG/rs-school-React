@@ -1,6 +1,7 @@
 import { Outlet, useSearchParams } from 'react-router-dom';
 import ResultItem from '../components/ResultItem';
 import { ResultItemsProps } from '../types';
+import ResultItemSelect from './ResultItemSelect';
 
 function ResultItems({ gifs }: ResultItemsProps) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -19,13 +20,15 @@ function ResultItems({ gifs }: ResultItemsProps) {
         <>
           <div className="results-items show-items">
             {gifs.map((gif) => (
-              <div
-                className="results-items-inner"
-                key={gif.id}
-                onClick={() => showDetails(gif.id)}
-                style={{ cursor: 'pointer' }}
-              >
-                <ResultItem gif={gif} />
+              <div key={gif.id} className="results-items-wrapper">
+                <ResultItemSelect gif={gif} />
+                <div
+                  className="results-items-inner"
+                  onClick={() => showDetails(gif.id)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <ResultItem gif={gif} />
+                </div>
               </div>
             ))}
           </div>

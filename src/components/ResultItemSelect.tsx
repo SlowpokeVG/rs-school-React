@@ -17,7 +17,12 @@ function ResultItemSelect({ gif }: CheckboxProps) {
   return (
     <div className="results-item-select">
       <label>
-        <input type="checkbox" checked={isSelected} onChange={handleChange} />
+        <input
+          className="results-item-select-checkbox"
+          type="checkbox"
+          checked={isSelected}
+          onChange={handleChange}
+        />
       </label>
     </div>
   );

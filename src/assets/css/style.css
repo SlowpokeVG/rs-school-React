@@ -34,20 +34,6 @@ ul {
   padding: 0;
 }
 
-header,
-main,
-footer {
-  max-width: 1440px;
-  box-sizing: border-box;
-  margin: 0 auto;
-  padding: 0 0;
-}
-
-main {
-  position: relative;
-  padding-top: 20px;
-}
-
 h1,
 h2,
 .section-title {
@@ -64,6 +50,16 @@ h2 span,
 .section-title span {
   color: var(--brown);
   font-style: italic;
+}
+
+.container {
+  max-width: 1440px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0 0;
+  position: relative;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .text-center {
