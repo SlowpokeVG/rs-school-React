@@ -18,7 +18,7 @@ export function selectedItemsReducer(
             ? state.selected.filter((id) => id !== action.payload)
             : [...state.selected, action.payload],
         };
-      else return state;
+      return state;
     case CLEAR_SELECTION:
       return { ...state, selected: [] };
     default:

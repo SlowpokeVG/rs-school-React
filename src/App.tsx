@@ -1,5 +1,6 @@
 import './assets/css/style.css';
 import './assets/css/task2.css';
+import './assets/css/task3.css';
 import './assets/css/responsive.css';
 import SearchScreen from './screens/Search';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -8,7 +9,7 @@ import NotFoundScreen from './screens/NotFound';
 import ResultDetails from './components/ResultDetails';
 import { store } from './redux/store';
 import { Provider } from 'react-redux';
-import { ThemeContext } from './context/themeContext';
+import { ThemeProvider } from './context/themeContext';
 
 const router = createBrowserRouter([
   {
@@ -30,11 +31,11 @@ const router = createBrowserRouter([
 function App() {
   return (
     <Provider store={store}>
-      <ThemeContext.Provider value={{}}>
+      <ThemeProvider>
         <ErrorBoundary>
           <RouterProvider router={router} />
         </ErrorBoundary>
-      </ThemeContext.Provider>
+      </ThemeProvider>
     </Provider>
   );
 }

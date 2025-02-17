@@ -4,13 +4,15 @@ import Loader from '../ui/Loader';
 import Error from '../ui/Error';
 import ErrorButton from '../components/ErrorButton';
 import Pagination from '../components/Pagination';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ApiResponse, Gif } from '../types';
 import { search, trending } from '../scripts/api';
 import useLocalStorage from '../hooks/useLocalStorage';
+import { ThemeContext } from '../context/themeContext';
 
 function SearchScreen() {
+  const { theme } = useContext(ThemeContext);
   const [query] = useLocalStorage('query', '');
   const [searchParams] = useSearchParams();
   const page = searchParams.get('page');
@@ -53,7 +55,7 @@ function SearchScreen() {
   }, [fetchGifs, query]);
 
   return (
-    <main>
+    <main className={theme + '-theme'}>
       <TopControls fetchGifs={fetchGifs} />
 
       {loading && <Loader />}

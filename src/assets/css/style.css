@@ -40,11 +40,11 @@ footer {
   max-width: 1440px;
   box-sizing: border-box;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 0;
 }
 
 main {
-  margin-top: 20px;
+  padding-top: 20px;
 }
 
 h1,
