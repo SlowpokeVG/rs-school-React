@@ -10,6 +10,7 @@ import { ApiResponse, Gif } from '../types';
 import { search, trending } from '../scripts/api';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { ThemeContext } from '../context/themeContext';
+import Flyout from '../components/Flyout';
 
 function SearchScreen() {
   const { theme } = useContext(ThemeContext);
@@ -63,6 +64,7 @@ function SearchScreen() {
       {!loading && !error && <Results gifs={gifs} />}
       <ErrorButton />
       <Pagination pagesCount={pagesCount} />
+      <Flyout />
     </main>
   );
 }

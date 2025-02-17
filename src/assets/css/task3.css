@@ -7,3 +7,12 @@
   background-color: var(--light);
   color: var(--dark);
 }
+
+.flyout {
+  position: fixed;
+  bottom: 0;
+  width: 200px;
+  height: 60px;
+  background: black;
+  color: white;
+}
