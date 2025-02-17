@@ -9,7 +9,7 @@ import NotFoundScreen from './screens/NotFound';
 import ResultDetails from './components/ResultDetails';
 import { store } from './redux/store';
 import { Provider } from 'react-redux';
-import { ThemeProvider } from './context/themeContext';
+import { ThemeProvider } from './context/themeProvider';
 
 const router = createBrowserRouter([
   {
