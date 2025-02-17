@@ -4,7 +4,7 @@ import ResultItemSelect from './ResultItemSelect';
 function ResultItem({ gif }: ResultItemProps) {
   return (
     <>
-      <ResultItemSelect id={gif.id} />
+      <ResultItemSelect gif={gif} />
       <div className="results-item">
         <div className="item-image">
           <img src={gif.images.fixed_height.url} alt={`Image ${gif.title}`} />

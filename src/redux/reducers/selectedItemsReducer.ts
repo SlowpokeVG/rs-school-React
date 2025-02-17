@@ -1,5 +1,8 @@
-const initialState: { selected: string[] } = {
+import { Gif } from '../../types';
+
+const initialState: { selected: string[]; selectedGifs: Gif[] } = {
   selected: [],
+  selectedGifs: [],
 };
 
 const TOGGLE_SELECTION = 'TOGGLE_SELECTION';
@@ -7,16 +10,23 @@ const CLEAR_SELECTION = 'CLEAR_SELECTION';
 
 export function selectedItemsReducer(
   state = initialState,
-  action: { type: string; payload?: string }
+  action: { type: string; payload?: Gif }
 ) {
   switch (action.type) {
     case TOGGLE_SELECTION:
-      if (action.payload)
+      if (action.payload != undefined)
         return {
           ...state,
-          selected: state.selected.includes(action.payload)
-            ? state.selected.filter((id) => id !== action.payload)
-            : [...state.selected, action.payload],
+          selected: state.selected.includes(action.payload.id)
+            ? state.selected.filter(
+                (id) => action.payload && id !== action.payload.id
+              )
+            : [...state.selected, action.payload.id],
+          selectedGifs: state.selected.includes(action.payload.id)
+            ? state.selectedGifs.filter(
+                (gif) => action.payload && gif.id !== action.payload.id
+              )
+            : [...state.selectedGifs, action.payload],
         };
       return state;
     case CLEAR_SELECTION:
@@ -26,9 +36,9 @@ export function selectedItemsReducer(
   }
 }
 
-export const toggleSelection = (id: string) => ({
+export const toggleSelection = (gif: Gif) => ({
   type: TOGGLE_SELECTION,
-  payload: id,
+  payload: gif,
 });
 
 export const clearSelection = () => ({

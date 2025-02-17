@@ -3,14 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../redux/store';
 import { toggleSelection } from '../redux/reducers/selectedItemsReducer';
 
-function ResultItemSelect({ id }: CheckboxProps) {
+function ResultItemSelect({ gif }: CheckboxProps) {
+  const id = gif.id;
   const dispatch = useDispatch<AppDispatch>();
   const isSelected = useSelector((state: RootState) =>
     state.selectedItems.selected.includes(id)
   );
 
   const handleChange = () => {
-    dispatch(toggleSelection(id));
+    dispatch(toggleSelection(gif));
   };
 
   return (

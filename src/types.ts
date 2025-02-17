@@ -56,5 +56,5 @@ export interface ResultItemsProps {
 }
 
 export interface CheckboxProps {
-  id: string;
+  gif: Gif;
 }
