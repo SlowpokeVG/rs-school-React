@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../redux/store';
-import { clearSelection } from '../redux/reducers/selectedItemsReducer';
+import { clearSelection } from '../redux/slices/selectedItemsSlice';
 import csvCreate from '../scripts/csvCreate';
 
 function Flyout() {
@@ -10,7 +10,7 @@ function Flyout() {
     (state: RootState) => state.selectedItems.selectedGifs
   );
   const selectedNumber = selectedItems.length;
-  function handleClick() {
+  function unselect() {
     dispatch(clearSelection());
   }
 
@@ -32,7 +32,7 @@ function Flyout() {
   return selectedNumber > 0 ? (
     <div className="flyout">
       <div>{selectedNumber} items are selected</div>
-      <div className="flyout-button" onClick={handleClick}>
+      <div className="flyout-button" onClick={unselect}>
         <div className="flyout-button-text">Unselect All</div>
       </div>
       <div className="flyout-button" onClick={downloadCSV}>

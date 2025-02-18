@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import selectedItemsReducer from './reducers/selectedItemsReducer';
+import { selectedItemsSlice } from './slices/selectedItemsSlice';
 import { giphyApi } from './api';
 import { searchSlice } from './slices/searchSlice';
 import { pageSlice } from './slices/currentPageSlice';
 
 export const store = configureStore({
   reducer: {
-    selectedItems: selectedItemsReducer,
+    selectedItems: selectedItemsSlice.reducer,
     [giphyApi.reducerPath]: giphyApi.reducer,
     search: searchSlice.reducer,
     pageData: pageSlice.reducer,

@@ -1,7 +1,7 @@
 import { CheckboxProps } from '../types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../redux/store';
-import { toggleSelection } from '../redux/reducers/selectedItemsReducer';
+import { toggleSelection } from '../redux/slices/selectedItemsSlice';
 
 function ResultItemSelect({ gif }: CheckboxProps) {
   const id = gif.id;
