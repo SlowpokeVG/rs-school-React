@@ -1,6 +1,6 @@
 import { act, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import SearchScreen from '../screens/Search';
+import SearchScreen from '../screens/SearchScreen';
 import * as api from '../scripts/api';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { mockGifs } from './mockData';

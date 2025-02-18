@@ -1,15 +1,14 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { useSearchParams } from 'react-router-dom';
+import { setQuery } from '../redux/slices/searchSlice';
+import { useDispatch } from 'react-redux';
 
-interface SearchProps {
-  fetchGifs: (query: string) => void;
-}
-
-function Search({ fetchGifs }: SearchProps) {
+function Search() {
+  const dispatch = useDispatch();
+  const [savedQuery, setSavedQuery] = useLocalStorage('query', '');
   const [searchParams, setSearchParams] = useSearchParams();
-  const [query, setQuery] = useLocalStorage('query', '');
-  const [searchString, setSearchString] = useState(query);
+  const [searchString, setSearchString] = useState(savedQuery);
 
   function inputChange(event: ChangeEvent<HTMLInputElement>) {
     setSearchString(event.target.value);
@@ -17,11 +16,12 @@ function Search({ fetchGifs }: SearchProps) {
 
   function handleFormSubmit(event: FormEvent) {
     event.preventDefault();
-    setQuery(searchString);
+
+    setSavedQuery(searchString);
     searchParams.delete('page');
     searchParams.delete('details');
     setSearchParams(searchParams);
-    fetchGifs(searchString);
+    dispatch(setQuery(searchString));
   }
 
   return (

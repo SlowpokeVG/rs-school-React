@@ -1,10 +1,9 @@
 import ResultItems from '../components/ResultItems';
-import { ResultItemsProps } from '../types';
 
-function Results({ gifs }: ResultItemsProps) {
+function Results() {
   return (
     <section className="results">
-      <ResultItems gifs={gifs} />
+      <ResultItems />
     </section>
   );
 }

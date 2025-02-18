@@ -2,7 +2,7 @@ import './assets/css/style.css';
 import './assets/css/task2.css';
 import './assets/css/task3.css';
 import './assets/css/responsive.css';
-import SearchScreen from './screens/Search';
+import SearchScreen from './screens/SearchScreen';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ErrorBoundary from './components/ErrorBoundary';
 import NotFoundScreen from './screens/NotFound';

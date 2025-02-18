@@ -1,17 +1,18 @@
 import { Outlet, useSearchParams } from 'react-router-dom';
 import ResultItem from '../components/ResultItem';
-import { ResultItemsProps } from '../types';
 import ResultItemSelect from './ResultItemSelect';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
-function ResultItems({ gifs }: ResultItemsProps) {
+function ResultItems() {
   const [searchParams, setSearchParams] = useSearchParams();
   const details = searchParams.get('details') || '';
+  const gifs = useSelector((state: RootState) => state.pageData.currentData);
 
   const showDetails = (id: string) => {
     searchParams.set('details', id);
     setSearchParams(searchParams);
   };
-
   return (
     <div className="results-block">
       {gifs.length === 0 ? (

@@ -1,19 +1,19 @@
 import { useSearchParams } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
-import { detail } from '../scripts/api';
-import { ApiDetailsResponse, Gif } from '../types';
+import { useEffect, useRef } from 'react';
+import { useDetailQuery } from '../redux/api';
 import Loader from '../ui/Loader';
+import Error from '../ui/Error';
 
 function ResultDetails() {
   const [searchParams, setSearchParams] = useSearchParams();
   const modalRef = useRef<HTMLDivElement | null>(null);
-  const details = searchParams.get('details');
-  const [id, setId] = useState(details);
+  const id = searchParams.get('details') || '';
+
+  const { data, error, isLoading } = useDetailQuery({ id }, { skip: !id });
 
   const handleClose = () => {
     searchParams.delete('details');
     setSearchParams(searchParams);
-    setId(searchParams.get('details'));
   };
 
   useEffect(() => {
@@ -31,34 +31,7 @@ function ResultDetails() {
     };
   });
 
-  const [gif, setGif] = useState<Gif>();
-  const [error, setError] = useState<string | null | undefined>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (id) {
-      const fetchGif = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-          const result = await detail(id);
-          const data: ApiDetailsResponse | undefined = result.data;
-          if (result.success && data) {
-            setGif(data.data);
-          } else {
-            setError(result.error || 'Failed to load GIFs.');
-          }
-        } catch {
-          setError('An error occurred while fetching the GIF');
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchGif();
-    }
-  }, [id]);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="result-detail">
         <Loader />
@@ -67,14 +40,19 @@ function ResultDetails() {
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <div className="result-detail">
+        <Error error={error} />
+      </div>
+    );
   }
 
+  const gif = data?.data;
   if (!gif) {
     return <div>No GIF available</div>;
   }
 
-  return id != null ? (
+  return (
     <div className="result-detail" ref={modalRef}>
       <div className="result-inner">
         <div className="result-content">
@@ -94,14 +72,14 @@ function ResultDetails() {
             <>
               <div className="author-title">Author: {gif.user.username}</div>
               <div className="author-profile">
-                {gif.user.avatar_url ? (
+                {gif.user.avatar_url && (
                   <div className="author-image">
                     <img
                       src={gif.user.avatar_url}
                       alt={`${gif.user.username}'s avatar`}
                     />
                   </div>
-                ) : null}
+                )}
                 <div className="author-name">{gif.user.display_name}</div>
               </div>
               <div className="author-description">{gif.user.description}</div>
@@ -110,7 +88,7 @@ function ResultDetails() {
         </div>
       </div>
     </div>
-  ) : null;
+  );
 }
 
 export default ResultDetails;
