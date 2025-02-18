@@ -7,7 +7,9 @@ const perPage = 24;
 
 export const giphyApi = createApi({
   reducerPath: 'giphyApi',
+  keepUnusedDataFor: 120,
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+
   endpoints: (builder) => ({
     searchGifs: builder.query<ApiResponse, { query: string; offset?: number }>({
       query: ({ query, offset = 0 }) => {

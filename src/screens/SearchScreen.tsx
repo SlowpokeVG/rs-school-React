@@ -18,9 +18,10 @@ function SearchScreen() {
 
   const [savedQuery] = useLocalStorage('query', '');
   const { theme } = useContext(ThemeContext);
-  const query =
-    useSelector((state: { search: { query: string } }) => state.search.query) ||
-    savedQuery;
+  const reduxQuery = useSelector(
+    (state: { search: { query: string } }) => state.search.query
+  );
+  const query = reduxQuery === null ? savedQuery : reduxQuery;
 
   const [searchParams] = useSearchParams();
   const page = searchParams.get('page');

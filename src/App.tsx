@@ -14,7 +14,11 @@ import { ThemeProvider } from './context/themeProvider';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <SearchScreen />,
+    element: (
+      <ErrorBoundary>
+        <SearchScreen />
+      </ErrorBoundary>
+    ),
     children: [
       {
         path: '',

@@ -3,12 +3,12 @@ import { useState } from 'react';
 function ErrorButton() {
   const [errorState, setErrorState] = useState(false);
 
-  function handleClick() {
-    setErrorState(true);
-  }
-
   if (errorState) {
     throw new Error('Fake Error');
+  }
+
+  function handleClick() {
+    setErrorState(true);
   }
 
   return (
