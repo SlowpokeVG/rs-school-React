@@ -3,6 +3,8 @@ import { MemoryRouter } from 'react-router-dom';
 import Search from '../components/Search';
 import { beforeEach, describe, expect, it } from 'vitest';
 import '@testing-library/jest-dom';
+import { Provider } from 'react-redux';
+import { store } from '../redux/store';
 
 describe('Search component', () => {
   beforeEach(() => {
@@ -12,7 +14,9 @@ describe('Search component', () => {
   it('saves the entered value to local storage on search', () => {
     render(
       <MemoryRouter>
-        <Search fetchGifs={function (): void {}} />
+        <Provider store={store}>
+          <Search />
+        </Provider>
       </MemoryRouter>
     );
 
@@ -29,7 +33,22 @@ describe('Search component', () => {
     localStorage.setItem('query', 'saved query');
     render(
       <MemoryRouter>
-        <Search fetchGifs={function (): void {}} />
+        <Provider store={store}>
+          <Search />
+        </Provider>
+      </MemoryRouter>
+    );
+
+    expect(screen.getByPlaceholderText('Search')).toHaveValue('saved query');
+  });
+
+  it('saves query in redux store', () => {
+    localStorage.setItem('query', 'saved query');
+    render(
+      <MemoryRouter>
+        <Provider store={store}>
+          <Search />
+        </Provider>
       </MemoryRouter>
     );
 
