@@ -52,6 +52,10 @@ h2 span,
   font-style: italic;
 }
 
+main {
+  min-height: 100vh;
+}
+
 .container {
   max-width: 1440px;
   box-sizing: border-box;

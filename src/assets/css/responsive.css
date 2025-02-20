@@ -1,7 +1,7 @@
 @media (max-width: 1199px) {
-  main {
+  .container {
     max-width: 768px;
-    margin-top: 15px;
+    padding-top: 15px;
   }
 
   .results-items {
@@ -30,7 +30,7 @@
     letter-spacing: 1px;
   }
 
-  main {
+  .container {
     max-width: 380px;
     padding: 0 16px;
   }
