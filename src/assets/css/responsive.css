@@ -1,0 +1,50 @@
+@media (max-width: 1199px) {
+  .container {
+    max-width: 768px;
+    padding-top: 15px;
+  }
+
+  .results-items {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 38px;
+    padding: 0 13px;
+  }
+
+  .results-item .item-description {
+    width: 270px;
+    min-height: 72px;
+    letter-spacing: unset;
+  }
+
+  .navigation {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 740px) {
+  h1,
+  h2,
+  .section-title {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: 1px;
+  }
+
+  .container {
+    max-width: 380px;
+    padding: 0 16px;
+  }
+
+  .results-items {
+    grid-template-columns: repeat(1, 1fr);
+    padding: 0 19px;
+  }
+
+  .results-item .item-info {
+    margin-top: 2px;
+  }
+
+  .navigation-links {
+    gap: 0 7px;
+  }
+}

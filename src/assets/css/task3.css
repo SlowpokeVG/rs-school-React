@@ -1,0 +1,87 @@
+.dark-theme {
+  background-color: var(--dark);
+  color: var(--light);
+}
+
+.light-theme {
+  background-color: var(--light);
+  color: var(--dark);
+}
+
+.flyout {
+  position: fixed;
+  bottom: 0;
+  width: fit-content;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 20px;
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.flyout-button-text {
+  border: 1px solid var(--brown);
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: linear 0.5s;
+}
+
+.flyout-button-text:hover {
+  background-color: var(--grey);
+}
+
+.results-items-wrapper {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.results-items-inner {
+  width: 100%;
+}
+
+.results-item-select-checkbox {
+  width: 20px;
+  height: 20px;
+}
+
+.theme-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.theme-button-text {
+  background-color: var(--brown);
+  color: var(--dark);
+  width: 120px;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: linear 0.5s;
+}
+
+.theme-button-text:hover {
+  background-color: var(--grey);
+}
+
+.light-theme .theme-button-text {
+  background-color: var(--dark);
+  color: var(--brown);
+}
+
+.light-theme .theme-button-text:hover {
+  background-color: var(--brown);
+  color: var(--dark);
+}
