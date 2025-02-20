@@ -52,6 +52,12 @@ describe('Search component', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByPlaceholderText('Search')).toHaveValue('saved query');
+    const input = screen.getByPlaceholderText('Search');
+    const button = screen.getByRole('button');
+
+    fireEvent.change(input, { target: { value: 'test query' } });
+    fireEvent.click(button);
+
+    expect(store.getState().search.query).toBe('test query');
   });
 });

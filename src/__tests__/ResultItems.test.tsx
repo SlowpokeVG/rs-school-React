@@ -1,18 +1,12 @@
 import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter, useSearchParams } from 'react-router-dom';
 import ResultItems from '../components/ResultItems';
-import { Gif, ResultItemsProps } from '../types';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mockGifs } from './mockData';
 import '@testing-library/jest-dom';
-
-const renderWithRouter = (props: ResultItemsProps) => {
-  return render(
-    <MemoryRouter>
-      <ResultItems {...props} />
-    </MemoryRouter>
-  );
-};
+import { Provider } from 'react-redux';
+import { store } from '../redux/store';
+import { setCurrentData } from '../redux/slices/currentPageSlice';
 
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
@@ -37,32 +31,52 @@ vi.mock('react-router-dom', async () => {
 });
 
 describe('ResultItems Component', () => {
+  beforeEach(() => {
+    store.dispatch(setCurrentData([]));
+  });
+
   it('renders the correct number of cards', () => {
-    renderWithRouter({ gifs: mockGifs as unknown as Gif[] });
+    store.dispatch(setCurrentData(mockGifs));
+    render(
+      <MemoryRouter>
+        <Provider store={store}>
+          <ResultItems />
+        </Provider>
+      </MemoryRouter>
+    );
 
     const items = document.querySelectorAll('.results-item');
     expect(items.length).toBe(mockGifs.length);
   });
 
   it('shows a message if no cards are present', () => {
-    renderWithRouter({ gifs: [] });
+    store.dispatch(setCurrentData([]));
+
+    render(
+      <MemoryRouter>
+        <Provider store={store}>
+          <ResultItems />
+        </Provider>
+      </MemoryRouter>
+    );
 
     const message = document.querySelector('.resultsNotFound');
     expect(message).not.toBeNull();
   });
 
   it('should update searchParams when gif is clicked', async () => {
+    store.dispatch(setCurrentData(mockGifs));
     render(
-      <MemoryRouter initialEntries={['/']}>
-        <ResultItems gifs={mockGifs} />
+      <MemoryRouter>
+        <Provider store={store}>
+          <ResultItems />
+        </Provider>
       </MemoryRouter>
     );
 
-    const closeButton = screen.getByText(
-      'Im Ready Lets Go GIF by Leroy Patterson'
-    );
-    if (closeButton) {
-      fireEvent.click(closeButton);
+    const button = screen.getByText('Im Ready Lets Go GIF by Leroy Patterson');
+    if (button) {
+      fireEvent.click(button);
     }
 
     await waitFor(() => {

@@ -1,61 +1,94 @@
-import { describe, expect, it, Mock, vi } from 'vitest';
-import { renderHook } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { vi, describe, it, expect, Mock } from 'vitest';
+import { MemoryRouter } from 'react-router-dom';
+import ResultDetails from '../components/ResultDetails';
+import { mockGifs } from './mockData';
+import '@testing-library/jest-dom';
 import { useDetailQuery } from '../redux/api';
 
 vi.mock('../redux/api', () => ({
   useDetailQuery: vi.fn(),
 }));
+const mockGif = mockGifs[0];
 
-describe('useDetailQuery Hook', () => {
-  it('should return loading state', () => {
+describe('ResultDetails Component', () => {
+  it('should display a loading indicator while fetching data', async () => {
     (useDetailQuery as Mock).mockReturnValue({
       data: undefined,
       error: undefined,
       isLoading: true,
     });
 
-    const { result } = renderHook(() =>
-      useDetailQuery({ id: '123' }, { skip: false })
+    render(
+      <MemoryRouter initialEntries={['/?details=CjmvTCZf2U3p09Cn0h']}>
+        <ResultDetails />
+      </MemoryRouter>
     );
 
-    expect(result.current.isLoading).toBe(true);
-    expect(result.current.data).toBeUndefined();
-    expect(result.current.error).toBeUndefined();
+    expect(screen.getByAltText('Spinner')).toBeInTheDocument();
   });
 
-  it('should return data when request is successful', () => {
-    const mockData = { id: '123', title: 'Test GIF' };
-
+  it('should correctly display detailed card data when fetched', async () => {
     (useDetailQuery as Mock).mockReturnValue({
-      data: mockData,
+      data: { data: mockGif },
       error: undefined,
       isLoading: false,
     });
 
-    const { result } = renderHook(() =>
-      useDetailQuery({ id: '123' }, { skip: false })
+    render(
+      <MemoryRouter initialEntries={['/?details=CjmvTCZf2U3p09Cn0h']}>
+        <ResultDetails />
+      </MemoryRouter>
     );
 
-    expect(result.current.isLoading).toBe(false);
-    expect(result.current.data).toEqual(mockData);
-    expect(result.current.error).toBeUndefined();
+    await waitFor(() => {
+      expect(screen.getByText(mockGif.title)).toBeInTheDocument();
+      expect(screen.getByText(`Type: ${mockGif.type}`)).toBeInTheDocument();
+      expect(
+        screen.getByText(`Uploaded on: ${mockGif.import_datetime}`)
+      ).toBeInTheDocument();
+      expect(screen.getByText('Source')).toBeInTheDocument();
+    });
   });
 
-  it('should return an error when request fails', () => {
-    const mockError = { message: 'Failed to fetch' };
-
+  it('no Gif error', async () => {
     (useDetailQuery as Mock).mockReturnValue({
       data: undefined,
-      error: mockError,
+      error: { status: 'Fake Error' },
       isLoading: false,
     });
 
-    const { result } = renderHook(() =>
-      useDetailQuery({ id: '123' }, { skip: false })
+    render(
+      <MemoryRouter initialEntries={['/?details=CjmvTCZf2U3p09Cn0h']}>
+        <ResultDetails />
+      </MemoryRouter>
     );
 
-    expect(result.current.isLoading).toBe(false);
-    expect(result.current.data).toBeUndefined();
-    expect(result.current.error).toEqual(mockError);
+    await waitFor(() => {
+      expect(screen.getByText('Error: Fake Error')).toBeInTheDocument();
+    });
+  });
+  it('should close the component when the close button is clicked', async () => {
+    (useDetailQuery as Mock).mockReturnValue({
+      data: { data: mockGif },
+      error: undefined,
+      isLoading: false,
+    });
+
+    render(
+      <MemoryRouter initialEntries={['/?details=CjmvTCZf2U3p09Cn0h']}>
+        <ResultDetails />
+      </MemoryRouter>
+    );
+
+    await screen.findByText('Source');
+    const closeButton = document.querySelector('.close-detail');
+    if (closeButton) {
+      fireEvent.click(closeButton);
+    }
+
+    await waitFor(() => {
+      expect(screen.queryByText('Source')).toBeNull();
+    });
   });
 });

@@ -50,7 +50,7 @@ function SearchScreen() {
         {error && <Error error={error} />}
         {!isLoading && !error && <Results />}
         <ErrorButton />
-        <Pagination pagesCount={pagesCount} />
+        {data && <Pagination pagesCount={pagesCount} />}
         <Flyout />
       </div>
     </main>

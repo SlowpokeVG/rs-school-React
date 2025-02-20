@@ -53,41 +53,45 @@ function ResultDetails() {
   }
 
   return (
-    <div className="result-detail" ref={modalRef}>
-      <div className="result-inner">
-        <div className="result-content">
-          <div className="close-detail" onClick={handleClose}></div>
-          <div className="result-title">{gif.title}</div>
-          <div className="result-description">{gif.images.alt_text}</div>
-          <div className="result-type">Type: {gif.type}</div>
-          <div className="upload-date">Uploaded on: {gif.import_datetime}</div>
-          {gif.source && (
-            <div className="source">
-              <a href={gif.source} target="_blank" rel="noreferrer">
-                Source
-              </a>
+    id && (
+      <div className="result-detail" ref={modalRef}>
+        <div className="result-inner">
+          <div className="result-content">
+            <div className="close-detail" onClick={handleClose}></div>
+            <div className="result-title">{gif.title}</div>
+            <div className="result-description">{gif.images.alt_text}</div>
+            <div className="result-type">Type: {gif.type}</div>
+            <div className="upload-date">
+              Uploaded on: {gif.import_datetime}
             </div>
-          )}
-          {gif.user && (
-            <>
-              <div className="author-title">Author: {gif.user.username}</div>
-              <div className="author-profile">
-                {gif.user.avatar_url && (
-                  <div className="author-image">
-                    <img
-                      src={gif.user.avatar_url}
-                      alt={`${gif.user.username}'s avatar`}
-                    />
-                  </div>
-                )}
-                <div className="author-name">{gif.user.display_name}</div>
+            {gif.source && (
+              <div className="source">
+                <a href={gif.source} target="_blank" rel="noreferrer">
+                  Source
+                </a>
               </div>
-              <div className="author-description">{gif.user.description}</div>
-            </>
-          )}
+            )}
+            {gif.user && (
+              <>
+                <div className="author-title">Author: {gif.user.username}</div>
+                <div className="author-profile">
+                  {gif.user.avatar_url && (
+                    <div className="author-image">
+                      <img
+                        src={gif.user.avatar_url}
+                        alt={`${gif.user.username}'s avatar`}
+                      />
+                    </div>
+                  )}
+                  <div className="author-name">{gif.user.display_name}</div>
+                </div>
+                <div className="author-description">{gif.user.description}</div>
+              </>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    )
   );
 }
 
