@@ -1,19 +1,20 @@
-import { useSearchParams } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
+import { useRouter } from 'next/router';
 import { useDetailQuery } from '../redux/api';
 import Loader from '../ui/Loader';
 import Error from '../ui/Error';
 
 function ResultDetails() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const router = useRouter();
   const modalRef = useRef<HTMLDivElement | null>(null);
-  const id = searchParams.get('details') || '';
+  const id = Array.isArray(router.query.details) ? router.query.details[0] : router.query.details || '';
 
   const { data, error, isLoading } = useDetailQuery({ id }, { skip: !id });
 
   const handleClose = () => {
-    searchParams.delete('details');
-    setSearchParams(searchParams);
+    const newQuery = { ...router.query };
+    delete newQuery.details;
+    router.push({ pathname: router.pathname, query: newQuery });
   };
 
   useEffect(() => {
@@ -29,7 +30,7 @@ function ResultDetails() {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  });
+  }, []);
 
   if (isLoading) {
     return (

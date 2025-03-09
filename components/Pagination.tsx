@@ -1,16 +1,19 @@
-import { useSearchParams } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 function Pagination({ pagesCount }: { pagesCount: number }) {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const currentPage = searchParams.get('page')
-    ? parseInt(searchParams.get('page') as string)
-    : 1;
+  const router = useRouter();
+  const currentPage = Array.isArray(router.query.page)
+  ? parseInt(router.query.page[0] as string)
+  : router.query.page
+  ? parseInt(router.query.page as string)
+  : 1;
 
   const setPage = (newPage: number) => {
     if (newPage !== currentPage) {
-      searchParams.set('page', newPage.toString());
-      setSearchParams(searchParams);
+      router.push({
+        pathname: router.pathname,
+        query: { ...router.query, page: newPage.toString() },
+      });
     }
   };
 
@@ -22,6 +25,7 @@ function Pagination({ pagesCount }: { pagesCount: number }) {
             onClick={() => setPage(i + 1)}
             key={i + 1}
             className={currentPage === i + 1 ? 'nav-link active' : 'nav-link'}
+            style={{ cursor: 'pointer' }}
           >
             {i + 1}
           </li>

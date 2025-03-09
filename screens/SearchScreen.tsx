@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { useSearchGifsQuery } from '../redux/api';
 import { ThemeContext } from '../context/themeContext';
 import TopControls from '../sections/TopControls';
@@ -23,10 +23,14 @@ function SearchScreen() {
   );
   const query = reduxQuery === null ? savedQuery : reduxQuery;
 
-  const [searchParams] = useSearchParams();
-  const page = searchParams.get('page');
+  const router = useRouter();
+  const currentPage = Array.isArray(router.query.page)
+  ? parseInt(router.query.page[0] as string)
+  : router.query.page
+  ? parseInt(router.query.page as string)
+  : 1;
+
   const perPage = 24;
-  const currentPage: number = page ? parseInt(page) || 1 : 1;
   const { data, error, isLoading } = useSearchGifsQuery({
     query,
     offset: perPage * (currentPage - 1),

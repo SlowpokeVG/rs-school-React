@@ -1,18 +1,22 @@
-import { Outlet, useSearchParams } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import ResultItem from '../components/ResultItem';
 import ResultItemSelect from './ResultItemSelect';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import ResultDetails from '../components/ResultDetails';
 
 function ResultItems() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const details = searchParams.get('details') || '';
+  const router = useRouter();
+  const details = router.query.details || '';
   const gifs = useSelector((state: RootState) => state.pageData.currentData);
 
   const showDetails = (id: string) => {
-    searchParams.set('details', id);
-    setSearchParams(searchParams);
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, details: id },
+    });
   };
+
   return (
     <div className="results-block">
       {gifs.length === 0 ? (
@@ -33,7 +37,7 @@ function ResultItems() {
               </div>
             ))}
           </div>
-          {details && <Outlet />}
+          {details && <ResultDetails />}
         </>
       )}
     </div>

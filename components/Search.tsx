@@ -1,13 +1,13 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import useLocalStorage from '../hooks/useLocalStorage';
-import { useSearchParams } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { setQuery } from '../redux/slices/searchSlice';
 import { useDispatch } from 'react-redux';
 
 function Search() {
   const dispatch = useDispatch();
+  const router = useRouter();
   const [savedQuery, setSavedQuery] = useLocalStorage('query', '');
-  const [searchParams, setSearchParams] = useSearchParams();
   const [searchString, setSearchString] = useState(savedQuery);
 
   function inputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -18,10 +18,12 @@ function Search() {
     event.preventDefault();
 
     setSavedQuery(searchString);
-    searchParams.delete('page');
-    searchParams.delete('details');
-    setSearchParams(searchParams);
     dispatch(setQuery(searchString));
+
+    router.push({
+      pathname: router.pathname,
+      query: { search: searchString },
+    });
   }
 
   return (
