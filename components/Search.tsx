@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState, useEffect } from 'react';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { useRouter } from 'next/router';
 import { setQuery } from '../redux/slices/searchSlice';
@@ -10,6 +10,10 @@ function Search() {
   const [savedQuery, setSavedQuery] = useLocalStorage('query', '');
   const [searchString, setSearchString] = useState(savedQuery);
 
+  useEffect(() => {
+    setSearchString(savedQuery);
+  }, [savedQuery]);
+
   function inputChange(event: ChangeEvent<HTMLInputElement>) {
     setSearchString(event.target.value);
   }
@@ -17,8 +21,8 @@ function Search() {
   function handleFormSubmit(event: FormEvent) {
     event.preventDefault();
 
-    setSavedQuery(searchString);
-    dispatch(setQuery(searchString));
+    setSavedQuery(searchString); 
+    dispatch(setQuery(searchString)); 
 
     router.push({
       pathname: router.pathname,
