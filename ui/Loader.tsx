@@ -1,9 +1,10 @@
+import Image from 'next/image';
 import spinner from '../public/img/spinner.gif';
 
 function Loader() {
   return (
     <div className="loader">
-      <img src={spinner} alt="Spinner" />
+      <Image src={spinner} alt="Spinner" />
     </div>
   );
 }
