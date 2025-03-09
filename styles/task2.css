@@ -44,7 +44,7 @@
 .close-detail {
   width: 20px;
   height: 20px;
-  background-image: url('../img/close.png');
+  background-image: url('../public/img/close.png');
   background-repeat: no-repeat;
   background-size: contain;
   cursor: pointer;

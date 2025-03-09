@@ -170,7 +170,7 @@ main {
 }
 
 .search-form .button {
-  background-image: url('../img/search.png');
+  background-image: url('../public/img/search.png');
   background-position: center;
   background-size: 60%;
   background-repeat: no-repeat;
@@ -191,7 +191,7 @@ main {
 .search-form .close {
   width: 20px;
   height: 20px;
-  background-image: url('../img/close.png');
+  background-image: url('../public/img/close.png');
   background-position: center;
   background-size: 60%;
   background-repeat: no-repeat;

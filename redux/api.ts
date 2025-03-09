@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { ApiDetailsResponse, ApiResponse } from '../types';
 
-const API_KEY = import.meta.env.VITE_API_KEY;
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 const BASE_URL = 'https://api.giphy.com/v1/gifs';
 const perPage = 24;
 
